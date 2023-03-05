@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.use(require("./routes/auth"))
 
  
+
 app.get("",(req,res)=>{
     res.send("hii this is form server")
 })

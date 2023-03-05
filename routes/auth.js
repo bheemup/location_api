@@ -10,14 +10,27 @@ router.get("/",async(req,res)=>{
 
 router.post("/upload",async(req,res)=>{
         const {longitude,latitude}= req.body;
-       const newCordination = new cordination({
+       
+        const isLatitude = ()=>{
+        return  latitude <=90 && latitude >=-90
+        }
+        const isLongitude = () => {
+          return  longitude <=180 && longitude >=-180
+        }
+
+        if(!longitude || !latitude || !isLongitude() || !isLatitude()){
+          res.json({message:"please fill all details",status:400})
+        }else{
+          const newCordination = new cordination({
         longitude,latitude
        })
        await newCordination.save().then(()=>{
       return res.json({msg:"data is saved successfully",status:201})
        }).catch((err)=>{
         res.json({msg:err,status:500})
-       })
+       })   
+        }
+      
  
 })
 
